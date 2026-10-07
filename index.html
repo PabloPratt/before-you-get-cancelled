@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before You Get Cancelled</title>
+  <meta name="description" content="Scan your own X (Twitter) history for posts that could get you cancelled and personal info you've leaked. Runs 100% in your browser.">
+  <meta property="og:title" content="Before You Get Cancelled">
+  <meta property="og:description" content="Find your worst old posts before someone else does. Private: your data never leaves your browser.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧹</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="/">🧹 Before You Get Cancelled</a>
+      <span class="badge-private">🔒 Runs in your browser</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Landing -->
+    <section id="landing">
+      <div class="hero">
+        <h1>Find your worst posts<br><span class="accent">before someone else does.</span></h1>
+        <p class="lede">Upload your X (Twitter) archive and get every post, reply, repost and like that could come back to bite you, plus any personal info you've leaked. Sorted worst first, with a one-click link to delete each one.</p>
+      </div>
+
+      <label id="drop" class="drop">
+        <input id="file" type="file" accept=".zip,.js" hidden>
+        <div class="drop-icon">⬆</div>
+        <div class="drop-title">Drop your X archive .zip here</div>
+        <div class="muted">or click to choose a file (tweets.js works too)</div>
+      </label>
+      <div id="status" class="status" role="status"></div>
+      <p class="center"><button id="demo" class="btn ghost">No archive yet? Try it with demo data</button></p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <h3>Download your archive</h3>
+          <p>On X go to <b>Settings → Your account → Download an archive of your data</b>. X emails you when it's ready (usually within 24 hours).</p>
+          <a class="link" href="https://x.com/settings/download_your_data" target="_blank" rel="noopener">Open X archive settings ↗</a>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <h3>Scan it here</h3>
+          <p>Drop the .zip above. We check every post against 10 risk categories, from slurs and threats to drug references and hot takes, plus phone numbers, addresses, workplace and more.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <h3>Clean it up</h3>
+          <p>Review worst-first, open each post on X to delete it, and check it off. Your progress is saved on this device. Export a CSV if you want a record.</p>
+        </div>
+      </div>
+
+      <div class="privacy">
+        <h3>🔒 Your data never leaves your computer</h3>
+        <p>The archive is opened and scanned entirely inside your browser. There's no server, no account and no tracking. Close the tab and it's gone. This tool only works on <b>your own</b> archive, which only you can download.</p>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="results" hidden>
+      <div class="summary">
+        <div id="gauge" class="gauge" style="--p:0">
+          <div class="gauge-inner">
+            <div id="score-num" class="gauge-num">0</div>
+            <div class="gauge-sub">cancel risk</div>
+          </div>
+        </div>
+        <div class="summary-text">
+          <div class="muted" id="who">Your archive</div>
+          <h2 id="score-label">—</h2>
+          <div class="stats">
+            <div><b id="stat-total">0</b><span>scanned</span></div>
+            <div><b id="stat-flagged">0</b><span>flagged</span></div>
+            <div><b id="stat-left">0</b><span>still to review</span></div>
+            <div><b id="stat-pii">0</b><span>leak personal info</span></div>
+          </div>
+          <button id="restart" class="btn ghost small">Scan a different archive</button>
+        </div>
+      </div>
+
+      <div id="profile-findings" class="callout" hidden></div>
+
+      <div class="layout">
+        <aside>
+          <h3 class="side-h">Categories</h3>
+          <div id="cats" class="cats"></div>
+          <p class="muted tiny">Flags are automatic keyword matches, not judgments. Some will be false alarms (song lyrics, quotes, sarcasm). You decide what stays.</p>
+        </aside>
+
+        <div class="feed">
+          <div class="toolbar">
+            <input id="f-q" type="search" placeholder="Search your posts…">
+            <select id="f-kind">
+              <option value="all">All types</option>
+              <option value="post">Posts</option>
+              <option value="reply">Replies</option>
+              <option value="retweet">Reposts</option>
+              <option value="like">Likes</option>
+            </select>
+            <select id="f-year"></select>
+            <select id="f-sort">
+              <option value="risk">Worst first</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+              <option value="popular">Most engagement</option>
+            </select>
+          </div>
+          <div class="toolbar sub">
+            <label class="check"><input id="f-flagged" type="checkbox" checked> Flagged only</label>
+            <label class="check"><input id="f-hide" type="checkbox"> Hide removed</label>
+            <span class="spacer"></span>
+            <span id="count" class="muted"></span>
+            <span id="sel-count" class="muted"></span>
+          </div>
+          <div class="toolbar sub">
+            <button id="select-all" class="btn small ghost">Select visible</button>
+            <button id="mark-selected" class="btn small ghost">Mark selected as removed</button>
+            <button id="export" class="btn small ghost">Export CSV</button>
+          </div>
+
+          <div class="tip">💡 X doesn't allow bulk deleting for free, so each post links straight to X where you click <b>⋯ → Delete</b>. Then hit “Mark as removed” here. Auto-delete with X login is coming soon.</div>
+
+          <div id="list"></div>
+          <button id="more" class="btn ghost wide" hidden>Show more</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot muted">
+    Before You Get Cancelled · Not affiliated with X Corp. · Your archive is processed locally and never uploaded.
+    <br>More platforms (Instagram, Reddit, TikTok, Facebook) coming soon.
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="lexicon.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
