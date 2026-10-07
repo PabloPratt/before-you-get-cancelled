@@ -186,3 +186,9 @@ mark { color: inherit; border-radius: 3px; padding: 0 2px; }
   .gauge-num { font-size: 32px; }
   .badge-private { display: none; }
 }
+
+.quick { max-width: 640px; margin: 28px auto 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 22px; box-shadow: var(--shadow); }
+.quick h3 { margin: 0 0 8px; font-size: 16px; }
+.quick ol { margin: 0 0 8px; padding-left: 20px; }
+.quick li { margin-bottom: 6px; }
+.btn.bm { background: var(--accent); border-color: var(--accent); color: #fff; cursor: grab; }

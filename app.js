@@ -5,7 +5,7 @@ const state = {
   items: [],
   handle: "",
   profileFindings: [],
-  filter: { cat: "all", kind: "all", year: "all", q: "", sort: "risk", hideDone: false, flaggedOnly: true },
+  filter: { cat: "all", kind: "all", year: "all", q: "", sort: "risk", hideDone: false, flaggedOnly: false },
   selected: new Set(),
   done: loadDone(),
   shown: 50,
@@ -130,6 +130,12 @@ async function loadArchive(file) {
         profileText = [d.bio, d.location, d.website].filter(Boolean).join(" · ");
       } catch {}
     }
+  } else if (/\.json$/i.test(file.name)) {
+    // Saved by the "Scan my X profile" bookmarklet.
+    const data = JSON.parse(await file.text());
+    if (data.source !== "bygc-bookmarklet" || !Array.isArray(data.items)) throw new Error("That .json file isn't from the Scan my X profile bookmark.");
+    handle = data.handle || "";
+    for (const x of data.items) items.push(makeItem({ id: x.id, kind: x.kind, text: x.text || "", date: x.date ? new Date(x.date) : null }));
   } else {
     // A single tweets.js / like.js file.
     const data = parseYTD(await file.text());
@@ -372,6 +378,12 @@ function handleFile(file) {
     setStatus(e.message || "Couldn't read that file.", true);
   });
 }
+
+$("#bookmarklet").href = "javascript:(" + encodeURIComponent(bygcGrabber.toString()) + ")()";
+$("#bookmarklet").addEventListener("click", (e) => {
+  e.preventDefault();
+  setStatus("Drag the “Scan my X profile” button to your bookmarks bar, then click it while you're on your X profile.");
+});
 
 $("#file").addEventListener("change", (e) => handleFile(e.target.files[0]));
 const drop = $("#drop");

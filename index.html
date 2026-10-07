@@ -29,13 +29,25 @@
       </div>
 
       <label id="drop" class="drop">
-        <input id="file" type="file" accept=".zip,.js" hidden>
+        <input id="file" type="file" accept=".zip,.js,.json" hidden>
         <div class="drop-icon">⬆</div>
         <div class="drop-title">Drop your X archive .zip here</div>
-        <div class="muted">or click to choose a file (tweets.js works too)</div>
+        <div class="muted">or click to choose a file (also takes the .json from the bookmark below)</div>
       </label>
       <div id="status" class="status" role="status"></div>
       <p class="center"><button id="demo" class="btn ghost">No archive yet? Try it with demo data</button></p>
+
+      <div class="quick">
+        <div>
+          <h3>⚡ No archive? Scan straight from X</h3>
+          <ol>
+            <li>Drag this button to your bookmarks bar: <a id="bookmarklet" class="btn small bm" href="#">🧹 Scan my X profile</a></li>
+            <li>On x.com, open <b>your own</b> profile → <b>Replies</b> tab (or <b>Likes</b>), then click the bookmark.</li>
+            <li>It scrolls your profile, saves a file, and you drop that file above.</li>
+          </ol>
+          <p class="muted tiny">Free, no login to this site, nothing uploaded. It only runs on the profile you're logged in as. X only loads about your most recent 3,200 posts this way; the archive has everything.</p>
+        </div>
+      </div>
 
       <div class="steps">
         <div class="step">
@@ -112,7 +124,7 @@
             </select>
           </div>
           <div class="toolbar sub">
-            <label class="check"><input id="f-flagged" type="checkbox" checked> Flagged only</label>
+            <label class="check"><input id="f-flagged" type="checkbox"> Flagged only</label>
             <label class="check"><input id="f-hide" type="checkbox"> Hide removed</label>
             <span class="spacer"></span>
             <span id="count" class="muted"></span>
@@ -140,6 +152,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="lexicon.js"></script>
+  <script src="grabber.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
