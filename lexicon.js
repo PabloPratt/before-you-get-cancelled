@@ -155,20 +155,62 @@ const RISK_CATEGORIES = [
       /\bgot fired\b/gi,
     ],
   },
+  // ----- Hot topics: not wrong to post, but hot takes here are what usually resurfaces. -----
   {
-    id: "politics",
-    label: "Hot-button topics",
-    weight: 1,
-    hint: "Not wrong to post, but hot takes on these can come back later.",
+    id: "us_politics", group: "topics", label: "US politics", weight: 1,
+    hint: "Politicians, parties and election takes.",
     patterns: [
-      /\b(?:trump|biden|kamala|harris|obama|maga|vance|newsom|desantis)\b/gi,
-      /\b(?:democrats?|republicans?|libtards?|liberals?|conservatives?|leftists?|right ?wing(?:ers)?)\b/gi,
-      /\b(?:abortion|pro-?life|pro-?choice)\b/gi,
-      /\b(?:israel|palestine|gaza|zionis\w*|hamas)\b/gi,
-      /\b(?:blm|all lives matter|antifa|woke)\b/gi,
-      /\b(?:gun control|2a|second amendment)\b/gi,
-      /\b(?:vax|vaxx\w*|anti-?vax\w*|plandemic|covid hoax)\b/gi,
+      /(?:trump|biden|kamala|harris|obama|maga|vance|newsom|desantis|aoc|pelosi|fauci)/gi,
+      /(?:democrats?|dems|republicans?|gop|libtards?|liberals?|conservatives?|leftists?|right ?wing(?:ers)?|commies?|fascists?)/gi,
+      /(?:stolen|rigged) election|election (?:was )?(?:stolen|rigged)/gi,
+      /(?:antifa|proud boys|defund the police|acab|jan(?:uary)? 6)/gi,
     ],
+  },
+  {
+    id: "israel_palestine", group: "topics", label: "Israel / Palestine", weight: 2,
+    hint: "One of the most scrutinized topics by employers and schools right now.",
+    patterns: [
+      /(?:israel(?:i|is)?|palestin(?:e|ian|ians)|gaza|west bank|zionis\w*|anti-?zionis\w*|hamas|idf|netanyahu|hezbollah|intifada)/gi,
+      /from the river to the sea/gi,
+      /free palestine/gi,
+      /(?:oct(?:ober)? 7(?:th)?)/gi,
+      /(?:genocide|apartheid|ceasefire)/gi,
+    ],
+  },
+  {
+    id: "abortion", group: "topics", label: "Abortion", weight: 1,
+    hint: "Abortion and reproductive rights.",
+    patterns: [/(?:abortions?|pro-?life|pro-?choice|roe v\.? wade|planned parenthood)/gi],
+  },
+  {
+    id: "guns", group: "topics", label: "Guns", weight: 1,
+    hint: "Gun control and gun rights.",
+    patterns: [/(?:gun control|gun rights|2a|second amendment|nra|ar-?15s?|assault weapons?)/gi],
+  },
+  {
+    id: "immigration", group: "topics", label: "Immigration", weight: 1,
+    hint: "Border, deportation and immigration takes.",
+    patterns: [/(?:immigra\w+|illegal aliens?|deport\w*|border wall|ice raids?|migrants?|asylum seekers?)/gi],
+  },
+  {
+    id: "race", group: "topics", label: "Race", weight: 1,
+    hint: "Race and racial-justice debates.",
+    patterns: [/(?:blm|black lives matter|all lives matter|white privilege|critical race theory|crt|reparations|affirmative action|dei)/gi],
+  },
+  {
+    id: "gender", group: "topics", label: "Gender & LGBTQ", weight: 1,
+    hint: "Gender, trans and LGBTQ debates.",
+    patterns: [/(?:trans(?:gender)?|pronouns|lgbtq?\w*|gay marriage|drag queens?|pride month|woke|feminis(?:m|ts?))/gi],
+  },
+  {
+    id: "religion", group: "topics", label: "Religion", weight: 1,
+    hint: "Takes on religions or religious groups.",
+    patterns: [/(?:muslims?|islam\w*|christians?|christianity|jews?|jewish|atheis\w+|bible|quran|koran)/gi],
+  },
+  {
+    id: "covid", group: "topics", label: "COVID & vaccines", weight: 1,
+    hint: "Vaccine, mask and lockdown takes.",
+    patterns: [/(?:vax|vaxx\w*|vaccines?|anti-?vax\w*|plandemic|covid hoax|mask mandates?|lockdowns?)/gi],
   },
 ];
 

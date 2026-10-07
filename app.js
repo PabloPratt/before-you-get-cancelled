@@ -248,9 +248,12 @@ function render() {
       <span class="cat-track"><span class="cat-fill" style="width:${(n / max) * 100}%"></span></span>
       <span class="cat-n">${n}</span>
     </button>`;
+  const group = (g) => counts.filter(({ c }) => (c.group || "conduct") === g).map(({ c, n }) => bar(c.id, c.label, n, c.hint, "w" + Math.min(c.weight, 10))).join("");
   $("#cats").innerHTML =
     bar("all", "Everything flagged", flagged.length, "Show all flagged posts", "all") +
-    counts.map(({ c, n }) => bar(c.id, c.label, n, c.hint, "w" + Math.min(c.weight, 10))).join("") +
+    `<div class="cat-group">Conduct</div>` + group("conduct") +
+    `<div class="cat-group">Hot topics</div>` + group("topics") +
+    `<div class="cat-group">Privacy</div>` +
     bar("pii", "Personal info", piiCount, "Posts that reveal personal details about you", "pii");
 
   // Profile findings

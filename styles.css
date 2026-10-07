@@ -131,6 +131,7 @@ aside { position: sticky; top: 72px; }
 .cat.empty { color: var(--muted); }
 .cat-track { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
 .cat-fill { display: block; height: 100%; background: var(--bar); border-radius: 3px; }
+.cat-group { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 10px 8px 2px; }
 .cat-n { text-align: right; font-variant-numeric: tabular-nums; }
 .cat.all { --bar: var(--text); }
 .cat.w10, .cat.w7, .cat.w6, .cat.w5 { --bar: var(--bad); }
